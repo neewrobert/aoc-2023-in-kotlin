@@ -1,6 +1,7 @@
 package day08
 
 import readInput
+import java.util.stream.Collectors
 
 fun parseInput(input: List<String>): Pair<String, Map<String, Pair<String, String>>> {
 
@@ -18,8 +19,22 @@ fun part1(input: List<String>): Int {
 
     val (directions, path) = parseInput(input)
     var currentPosition = "AAA"
+    var endPosition = "ZZZ"
+    var count = countSteps(currentPosition, endPosition, directions, path)
+
+
+    return count
+}
+
+private fun countSteps(
+    startPosition: String,
+    endPosition: String,
+    directions: String,
+    path: Map<String, Pair<String, String>>
+): Int {
+    var currentPosition = startPosition
     var count = 0
-    while (currentPosition.trim() != "ZZZ") {
+    while (currentPosition.trim() != endPosition) {
         val nextDirection = directions[count % directions.length]
         currentPosition = when (nextDirection) {
             'L' -> path[currentPosition.trim()]!!.first
@@ -27,13 +42,47 @@ fun part1(input: List<String>): Int {
         }
         count++
     }
-
-
     return count
 }
 
+private fun countStepsPart2(
+    startPosition: String,
+    directions: String,
+    path: Map<String, Pair<String, String>>
+): Int {
+    var currentPosition = startPosition
+    var count = 0
+    while (currentPosition.trim().endsWith("Z").not()) {
+        val nextDirection = directions[count % directions.length]
+        currentPosition = when (nextDirection) {
+            'L' -> path[currentPosition.trim()]!!.first
+            else -> path[currentPosition.trim()]!!.second
+        }
+        count++
+    }
+    return count
+}
+
+fun List<Long>.findLeastCommonMultiple(): Long {
+    fun greatestCommonDivisor(first: Long, second: Long): Long =
+        if (second == 0L) first else greatestCommonDivisor(second, first % second)
+
+    fun leastCommonMultiple(first: Long, second: Long): Long =
+        (first * second) / greatestCommonDivisor(first, second)
+
+    return this.reduce { accumulated, number -> leastCommonMultiple(accumulated, number) }
+}
+
 fun part2(input: List<String>): Long {
-    return 0L
+
+    val (directions, path) = parseInput(input)
+
+
+    val nodesEndingWithA = path.filter { it.key.trim().endsWith("A") }
+    return nodesEndingWithA.map { (startPosition, _) ->
+         countStepsPart2(startPosition, directions, path)
+    }.map { it.toLong() }.findLeastCommonMultiple()
+
 }
 
 fun main() {
@@ -43,9 +92,9 @@ fun main() {
 
     println(part1(testInput))
     check(part1(testInput) == 6)
-    check(part1(input) == 17621)
     println(part1(input))
 
-//    check(part2(input) == 20685524831999L)
-//    println(part2(input))
+    val part2Result = part2(input)
+    println(part2Result)
+
 }
