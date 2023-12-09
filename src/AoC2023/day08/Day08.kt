@@ -1,7 +1,6 @@
-package day08
+package AoC2023.day08
 
 import readInput
-import java.util.stream.Collectors
 
 fun parseInput(input: List<String>): Pair<String, Map<String, Pair<String, String>>> {
 

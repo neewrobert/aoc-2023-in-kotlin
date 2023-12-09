@@ -1,4 +1,4 @@
-package day01
+package AoC2023.day01
 
 import println
 import readInput
@@ -51,7 +51,7 @@ fun main() {
     check(part2(testInputPartTwo) == 281)
 
 
-    val inputDayOne = readInput("Day01", "day01")
+    val inputDayOne = readInput("Day01", "AoC2023/day01")
     part1(inputDayOne).println()
 
     println("_______________________________________ PART 2")

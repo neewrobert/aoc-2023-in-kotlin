@@ -1,4 +1,4 @@
-package day05
+package AoC2023.day05
 
 
 import println

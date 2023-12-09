@@ -1,4 +1,4 @@
-package day06
+package AoC2023.day06
 
 import readInput
 
