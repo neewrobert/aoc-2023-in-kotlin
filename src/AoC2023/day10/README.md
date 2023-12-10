@@ -14,4 +14,13 @@ This challenge was my first experience using the tail recursive functions in Kot
 The core of my solution involves navigating through a grid, identifying paths and loops based on specific symbols and connection states, and determining the start and end points of loops.
 The use of tail recursion optimizes the process, making the code more efficient and Kotlin idiomatic.
 
+
+- **Grid Parsing:** Converting the input list of strings into a structured grid (`Array<CharArray>`).
+- **Directional Logic:** Using directional pairs (`Pair<Int, Int>`) and opposite directions for maze navigation.
+- **Path Symbol and Connection States:** Utilizing characters (`pathSymbols`) to represent paths, each associated with a connection state.
+- **Finding the Loop:** Implementing `findLoop` to locate the start ('S') and then `traverseLoop` for pathfinding.
+- **Tail Recursive Loop Traversal:** Employing tail recursion in `traverseLoop` for efficient exploration.
+- **Validation Checks:** Ensuring path validity and non-repetition with `isValidPosition` and `isRevisiting`.
+
+This approach showcases Kotlin's efficiency in handling complex recursive operations.
 #### Part 2
