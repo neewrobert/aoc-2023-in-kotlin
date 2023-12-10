@@ -31,3 +31,6 @@ Since part of the code from part1 was adapted from a Python code, was way harder
 
 
 To solve parte2 I've used a algorithm adapted from the [Flood Fill](https://en.wikipedia.org/wiki/Flood_fill) algorithm to find the enclosed tiles.
+
+### Conclusion
+Today's challenge was a very difficult, I think one of the most difficult so far. The good thing is that I've learned a lot from it. But my energy is running out, I'm not sure if I'll be able to finish the challenge this year. 
