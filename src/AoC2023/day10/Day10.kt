@@ -32,6 +32,9 @@ fun Array<CharArray>.size(): Pair<Int, Int> {
 }
 
 fun List<String>.toCharArray() = Array(size) { get(it).toCharArray() }
+
+//a loop is a path that starts and ends at the same point, in this case the starting point is 'S'
+// adapted from EDX Introduction to Artificial Intelligence (AI) with Python course
 fun findLoop(
     grid: Array<CharArray>,
     rows: Int,
@@ -41,13 +44,13 @@ fun findLoop(
     pathSymbols: CharArray,
     connectionStates: List<Int>
 ): List<Pair<Int, Int>>? {
-    for (i in grid.indices) {
-        for (j in grid[i].indices) {
-            if (grid[i][j] == 'S') {
+    for (x in grid.indices) { //X axis
+        for (y in grid[x].indices) { //Y axis
+            if (grid[x][y] == 'S') { // starting point
                 return traverseLoop(
                     grid,
-                    i,
-                    j,
+                    x,
+                    y,
                     rows,
                     cols,
                     directions,
@@ -61,7 +64,8 @@ fun findLoop(
     return null
 }
 
-fun traverseLoop(
+//First time using TAIL REC!!!!!!
+tailrec fun traverseLoop(
     grid: Array<CharArray>,
     startX: Int,
     startY: Int,
@@ -70,51 +74,43 @@ fun traverseLoop(
     directions: List<Pair<Int, Int>>,
     oppositeDirections: IntArray,
     pathSymbols: CharArray,
-    connectionStates: List<Int>
+    connectionStates: List<Int>,
+    x: Int = startX,
+    y: Int = startY,
+    previousX: Int = -1,
+    previousY: Int = -1,
+    currentConnectionState: Int = 15,
+    loopPath: MutableList<Pair<Int, Int>> = mutableListOf()
 ): List<Pair<Int, Int>> {
-    var x = startX
-    var y = startY
-    var currentConnectionState = 15
-    var previousX = -1
-    var previousY = -1
-    val loopPath = mutableListOf<Pair<Int, Int>>()
+    loopPath.add(x to y)
 
-    while (true) {
-        loopPath.add(Pair(x, y))
-        var found = false
+    directions.forEachIndexed { index, (dx, dy) ->
+        if (((1 shl index) and currentConnectionState) != 0) {
+            val newX = x + dx
+            val newY = y + dy
 
-        for (d in directions.indices) {
-            if (((1 shl d) and currentConnectionState) != 0) {
-                val newX = x + directions[d].first
-                val newY = y + directions[d].second
+            if (!isValidPosition(newX, newY, rows, cols) || isRevisiting(previousX, previousY, newX, newY)) {
+                return@forEachIndexed
+            }
 
-                if (!isValidPosition(newX, newY, rows, cols) || isRevisiting(previousX, previousY, newX, newY)) {
-                    continue
-                }
+            if (newX == startX && newY == startY) {
+                return loopPath
+            }
 
-                if (newX == startX && newY == startY) {
-                    return loopPath
-                }
-
-                val symbolIndex = pathSymbols.indexOf(grid[newX][newY])
-                if (symbolIndex < 0) continue
-
-                val nextConnectionState = connectionStates[symbolIndex]
-                if (((1 shl oppositeDirections[d]) and nextConnectionState) == 0) continue
-
-                previousX = x
-                previousY = y
-                x = newX
-                y = newY
-                currentConnectionState = nextConnectionState
-                found = true
-                break
+            val symbolIndex = pathSymbols.indexOf(grid[newX][newY])
+            if (symbolIndex >= 0 && ((1 shl oppositeDirections[index]) and connectionStates[symbolIndex]) != 0) {
+                return traverseLoop(
+                    grid, startX, startY, rows, cols, directions, oppositeDirections, pathSymbols, connectionStates,
+                    newX, newY, x, y, connectionStates[symbolIndex], loopPath
+                )
             }
         }
-
-        check(found) { "($x,$y) -> ${grid[x][y]}" }
     }
+
+    check(false) { "($x,$y) -> ${grid[x][y]}" }
+    return loopPath
 }
+
 
 fun isValidPosition(x: Int, y: Int, rows: Int, cols: Int): Boolean {
     return x in 0 until rows && y in 0 until cols
@@ -130,6 +126,7 @@ fun main() {
 
     val input = readInput("day10", "AoC2023/day10")
     println(part1(input))
+    check(part1(input) == 6701)
 
 }
 
