@@ -24,3 +24,10 @@ The use of tail recursion optimizes the process, making the code more efficient 
 
 This approach showcases Kotlin's efficiency in handling complex recursive operations.
 #### Part 2
+
+The second part of the challenge involves finding the amount tiles are enclosed by the loop. I've tried to reuse as much of my code from Part 1 as possible, 
+but I coundn't find a way to do it without repeating some of the code. 
+Since part of the code from part1 was adapted from a Python code, was way harder to come up with a solution that would work for both parts.
+
+
+To solve parte2 I've used a algorithm adapted from the [Flood Fill](https://en.wikipedia.org/wiki/Flood_fill) algorithm to find the enclosed tiles.
