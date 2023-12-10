@@ -25,12 +25,20 @@ The use of tail recursion optimizes the process, making the code more efficient 
 This approach showcases Kotlin's efficiency in handling complex recursive operations.
 #### Part 2
 
-The second part of the challenge involves finding the amount tiles are enclosed by the loop. I've tried to reuse as much of my code from Part 1 as possible, 
-but I coundn't find a way to do it without repeating some of the code. 
-Since part of the code from part1 was adapted from a Python code, was way harder to come up with a solution that would work for both parts.
+In Part 2 of the "Day 10: Pipe Maze" challenge, the objective was to calculate the number of tiles enclosed by the loop found in Part 1. 
+To achieve this, I adapted a technique similar to the  [Flood Fill](https://en.wikipedia.org/wiki/Flood_fill) algorithm, a classical approach used in computer graphics and games. 
+The main challenge was to integrate this new functionality while reusing as much code as possible from Part 1.
 
+- **Reusing Grid Parsing:** Leveraged the same grid parsing strategy from Part 1 to create a structured `Array<CharArray>`.
+- **Enhanced Loop Finding:** Modified `findLoopPath` to not only find the loop but also to track the path it takes. This required careful consideration of the directions and connections within the maze.
+- **Enclosed Tile Calculation:**
+  - After identifying the loop path, I implemented `countInsidePoints` to calculate the number of tiles enclosed by this loop.
+  - The function iterates over the grid, marking the positions of the loop path and then uses a ray-casting-like method to determine whether a given tile is inside or outside the loop.
+  - This approach involves tracking the transitions across the path boundary, toggling an 'inside' flag, and counting the tiles that fall inside the loop.
 
-To solve parte2 I've used a algorithm adapted from the [Flood Fill](https://en.wikipedia.org/wiki/Flood_fill) algorithm to find the enclosed tiles.
+##### Challenges and Solutions
+- **Code Reusability:** The main hurdle was integrating Part 2 with the existing code from Part 1 without excessive repetition. To address this, I focused on isolating the common functionalities (like grid parsing and pathfinding) and reusing them in both parts.
+- **Algorithm Adaptation:** Adapting the[Flood Fill](https://en.wikipedia.org/wiki/Flood_fill) algorithm to the context of a maze required careful consideration of the maze's structure and the path's characteristics. By combining elements of ray-casting and boundary tracking, I was able to accurately count the enclosed tiles.
 
 ### Conclusion
 Today's challenge was a very difficult, I think one of the most difficult so far. The good thing is that I've learned a lot from it. But my energy is running out, I'm not sure if I'll be able to finish the challenge this year. 
