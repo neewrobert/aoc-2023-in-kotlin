@@ -12,3 +12,5 @@ I'm hoping that by writing down my thoughts, I'll be able to better understand t
 - [DAY 01](./day01/README.md)
 - [DAY 02](./day02/README.md)
 - [DAY 03](./day03/README.md)
+- ... in progress ...
+- [DAY 10](./day10/README.md)
