@@ -38,7 +38,7 @@ The main challenge was to integrate this new functionality while reusing as much
 
 ##### Challenges and Solutions
 - **Code Reusability:** The main hurdle was integrating Part 2 with the existing code from Part 1 without excessive repetition. To address this, I focused on isolating the common functionalities (like grid parsing and pathfinding) and reusing them in both parts.
-- **Algorithm Adaptation:** Adapting the[Flood Fill](https://en.wikipedia.org/wiki/Flood_fill) algorithm to the context of a maze required careful consideration of the maze's structure and the path's characteristics. By combining elements of ray-casting and boundary tracking, I was able to accurately count the enclosed tiles.
+- **Algorithm Adaptation:** Adapting the [Flood Fill](https://en.wikipedia.org/wiki/Flood_fill) algorithm to the context of a maze required careful consideration of the maze's structure and the path's characteristics. By combining elements of ray-casting and boundary tracking, I was able to accurately count the enclosed tiles.
 
 ### Conclusion
 Today's challenge was a very difficult, I think one of the most difficult so far. The good thing is that I've learned a lot from it. But my energy is running out, I'm not sure if I'll be able to finish the challenge this year. 
